@@ -31,19 +31,19 @@ spec:
           volumeMounts:
             - name: wordpress-persistent-storage
               mountPath: /var/www/html
-          
+
       containers:
         - name: wordpress
           image: wordpress:latest
           env:
             - name: WORDPRESS_DB_HOST
-              value: "mysql-wpmaximus.mysql.database.azure.com"
+              value: "176.36.160.82"
             - name: WORDPRESS_DB_NAME
-              value: "test_manifest12"
+              value: "wordpress"
             - name: WORDPRESS_DB_USER
-              value: "mysqladmin@mysql-wpmaximus"
+              value: "root"
             - name: WORDPRESS_DB_PASSWORD
-              value: "1-qwerty"
+              value: "konstantin123"
           ports:
             - containerPort: 80
           volumeMounts:
@@ -51,11 +51,10 @@ spec:
               mountPath: /var/www/html
 
       volumes:
-      - name: wordpress-persistent-storage
-        persistentVolumeClaim:
-          claimName: wp-pv-claim
+        - name: wordpress-persistent-storage
+          persistentVolumeClaim:
+            claimName: wp-pv-claim
 
-          
 ---
 apiVersion: v1
 kind: Service
@@ -69,4 +68,3 @@ spec:
       port: 80
       targetPort: 80
   type: LoadBalancer
-
